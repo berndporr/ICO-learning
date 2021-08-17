@@ -93,15 +93,15 @@ Icolearning::~Icolearning() {
 		for(int i=0;i<nFilters;i++) {
 			delete iir[j][i];
 		}
-		delete iir[j];
+		delete[] iir[j];
 	}
-	delete iir;
+	delete[] iir;
 	for(int j=0;j<nChannels;j++) {
-		delete weight[j];
+		delete[] weight[j];
 	}
-	delete weight;
+	delete[] weight;
 	for(int j=0;j<nChannels;j++) {
-		delete lastCorrel[j];
+		delete[] lastCorrel[j];
 	}
 	delete lastCorrel;
 }
