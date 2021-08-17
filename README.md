@@ -1,5 +1,7 @@
 # ICO learning
 
+![alt tag](closedloop.png)
+
 [Porr, B. and Wörgötter, F. (2003) Isotropic sequence order learning.
 Neural Comp., 15, 831-864.](https://direct.mit.edu/neco/article/18/6/1380/7111/Strongly-Improved-Stability-and-Faster-Convergence)
 
@@ -13,12 +15,22 @@ a slow feedback loop by a faster proactive action.
   - cmake
   - gnuplot
 
+
+## Installation
+This installs `libicolearning` and the header files
+in the default install directories:
+```
+cmake .
+make
+sudo make install
+```
+
+
 ## Demo
 To get a feeling what ICO learning does there is a demo
 application. Type:
 
 ```
-make
 ./demo
 gnuplot onef_low_weights.plt
 evince onef_low_weights.eps
