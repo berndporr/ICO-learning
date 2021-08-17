@@ -190,7 +190,7 @@ void Icolearning::setPredictorsAsBandp(float f1,
 				i,j,fi,q1);
 			getFilter(i,j)->calcCoeffBandp(fi,q1);
 			char tmp[256];
-			sprintf(tmp,"h(t),bandpass: h%d_%02d.dat",i,j);
+			sprintf(tmp,"h_t_bandpass_%d_%02d.dat",i,j);
 			getFilter(i,j)->impulse(tmp);
 		}
 	}
