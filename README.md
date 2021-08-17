@@ -38,7 +38,4 @@ Instead of _low_ you can get _high_ and _highest_ if you write
 ./demo -d 2
 ```
 
-The option `-c` switches on the correction factor for ICO learning.
-With it on you have much better stability.
-
 Have fun!
