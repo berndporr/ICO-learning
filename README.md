@@ -1,5 +1,7 @@
 # ICO learning
 
+[![DOI](https://zenodo.org/badge/397375628.svg)](https://zenodo.org/badge/latestdoi/397375628)
+
 ![alt tag](closedloop.png)
 
 [Porr, B. and Wörgötter, F. (2003) Strongly Improved Stability and Faster Convergence of Temporal Sequence Learning by Using Input Correlations Only](https://direct.mit.edu/neco/article/18/6/1380/7111/Strongly-Improved-Stability-and-Faster-Convergence)
