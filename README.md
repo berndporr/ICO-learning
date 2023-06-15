@@ -32,7 +32,6 @@ application. Type:
 ```
 ./demo
 gnuplot onef_low_weights.plt
-evince onef_low_weights.eps
 ```
 
 ![alt tag](demo_output.png)

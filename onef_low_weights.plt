@@ -74,7 +74,8 @@ set ytics border mirror norotate autofreq
 set ztics border nomirror norotate autofreq 
 set nox2tics
 set noy2tics
-set terminal postscript eps
-set output "onef_low_weights.eps"
+#set terminal postscript eps
+#set output "onef_low_weights.eps"
 plot "onef_low_weights.dat" using 1:3 w l
 #    EOF
+pause -1
