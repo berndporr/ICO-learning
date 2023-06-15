@@ -2,8 +2,7 @@
 
 ![alt tag](closedloop.png)
 
-[Porr, B. and Wörgötter, F. (2003) Isotropic sequence order learning.
-Neural Comp., 15, 831-864.](https://direct.mit.edu/neco/article/18/6/1380/7111/Strongly-Improved-Stability-and-Faster-Convergence)
+[Porr, B. and Wörgötter, F. (2003) Strongly Improved Stability and Faster Convergence of Temporal Sequence Learning by Using Input Correlations Only](https://direct.mit.edu/neco/article/18/6/1380/7111/Strongly-Improved-Stability-and-Faster-Convergence)
 
 ICO learning is a learning algorithm which is inspired by spike timing
 dependent plasticity. It does "reflex avoidance": It replaces
@@ -36,7 +35,9 @@ gnuplot onef_low_weights.plt
 evince onef_low_weights.eps
 ```
 
-What you see are the weights of ICO learning. Until step 100000
+![alt tag](demo_output.png)
+
+Above shown are the weights of ICO learning. Until step 100000
 there's a typical STDP timing situation: First the predictive
 neuron gets an input and then the reflex neuron gets an input.
 The weights grow. Then it is assumed that the output of the
