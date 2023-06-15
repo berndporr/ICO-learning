@@ -221,7 +221,7 @@ void Icolearning::prediction(int) {
 	// channel 0 is no filter bank, it's just one filter
 	getFilter(0,0)->filter(inputs[0]);
 
-	// feed the input-channels into the Filter filters
+	// feed the input-channels into the filters
 	for(int j=1;j<nChannels;j++) {
 		// look throught the filter bank
 		for(int i=0;i<nFilters;i++) {

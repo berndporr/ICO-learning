@@ -27,27 +27,50 @@ sudo make install
 
 ## Demo
 To get a feeling what ICO learning does there is a demo
-application. Type:
+application. There are 3 different demo options.
+
+### Single filter and single weight in the predictive path
 
 ```
-./demo
-gnuplot onef_low_weights.plt
+./demo -d 0
+gnuplot onef_weights.plt
 ```
 
-![alt tag](demo_output.png)
+![alt tag](onef_out.png)
 
 Above shown are the weights of ICO learning. Until step 100000
-there's a typical STDP timing situation: First the predictive
-neuron gets an input and then the reflex neuron gets an input.
+there's a typical timing situation: First the predictive
+neuron is triggered and then the reflex neuron receives an input signal.
 The weights grow. Then it is assumed that the output of the
-neuron has successfully eliminated the reflex input and therefore
-the reflex input is switched off. You see that the weights
+neuron has successfully eliminated the reflex and therefore
+the reflex input stays zero (=error at zero). You see that the weights
 stabilise.
 
-Instead of _low_ you can get _high_ and _highest_ if you write
+
+### Spike timing dependent plasticity curve
+
+The derivative of the reflex (or error input) correlated with the predictive input produces
+an Spike Timing Dependent (STDP) like weight change when the timing between predictive input
+and reflex is systematically changed.
+
+
 ```
 ./demo -d 1
-./demo -d 2
+gnuplot stdp.plt
 ```
+
+![alt tag](stdp.png)
+
+### Filterbank with 10 different filters in the predictive pathway
+
+The filterbank generates different timings so that the predictive pathway can choose
+the filter response which is best suited to eliminate the reflex.
+
+```
+./demo -d 10
+gnuplot ten_filters_weights.plt
+```
+
+![alt tag](ten_filt.png)
 
 Have fun!

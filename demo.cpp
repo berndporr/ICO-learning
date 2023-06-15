@@ -4,7 +4,7 @@
 
 int trace=0;
 
-void icoLearningWithOneFilterLow() {
+void icoLearningWithOneFilter() {
 	// Two inputs: reflex and predictor
 	// Just one filter in the filterbank
 	Icolearning icolearning(2,1);
@@ -14,7 +14,7 @@ void icoLearningWithOneFilterLow() {
 		icolearning.setPredictorsAsTraces(50);
 	else
 		icolearning.setPredictorsAsBandp(0.01f,0.6f);
-	icolearning.openDocu("onef_low");
+	icolearning.openDocu("onefilter");
 	for(int step=0;step<150000;step++) {
 		if (step%1000==500) {
 			icolearning.setInput(1,1);
@@ -32,101 +32,7 @@ void icoLearningWithOneFilterLow() {
 }
 
 
-
-
-void icoLearningWithOneFilterHigh() {
-	// Two inputs: reflex and predictor
-	// Just one filter in the filterbank
-	Icolearning icolearning(2,1);
-	icolearning.setLearningRate(0.0001f);
-	icolearning.setReflex(0.01f,0.6f);
-	if (trace)
-		icolearning.setPredictorsAsTraces(50);
-	else
-		icolearning.setPredictorsAsBandp(0.01f,0.6f);
-	icolearning.openDocu("onef_high");
-	for(int step=0;step<150000;step++) {
-		if (step%1000==500) {
-			icolearning.setInput(1,1);
-		} else {
-			icolearning.setInput(1,0);
-		}
-		if ((step%1000==525)&&(step<100000)) {
-			icolearning.setInput(0,1);
-		} else {
-			icolearning.setInput(0,0);
-		}
-		icolearning.prediction(step);
-		if (step%10==0)
-			icolearning.writeDocu(step);
-	}
-}
-
-
-
-
-
-void icoLearningWithOneFilterHighest001() {
-	// Two inputs: reflex and predictor
-	// Just one filter in the filterbank
-	Icolearning icolearning(2,1);
-	icolearning.setLearningRate(0.001f);
-	icolearning.setReflex(0.01f,0.6f);
-	if (trace)
-		icolearning.setPredictorsAsTraces(50);
-	else
-		icolearning.setPredictorsAsBandp(0.01f,0.6f);
-	icolearning.openDocu("onef_highest");
-	for(int step=0;step<150000;step++) {
-		if (step%1000==500) {
-			icolearning.setInput(1,1);
-		} else {
-			icolearning.setInput(1,0);
-		}
-		if ((step%1000==525)&&(step<100000)) {
-			icolearning.setInput(0,1);
-		} else {
-			icolearning.setInput(0,0);
-		}
-		icolearning.prediction(step);
-		icolearning.writeDocu(step);
-	}
-}
-
-
-
-void icoLearningWithOneFilterHighest005() {
-	// Two inputs: reflex and predictor
-	// Just one filter in the filterbank
-	Icolearning icolearning(2,1);
-	icolearning.setLearningRate(0.001f);
-	icolearning.setReflex(0.01f,0.6f);
-	if (trace)
-		icolearning.setPredictorsAsTraces(50);
-	else
-		icolearning.setPredictorsAsBandp(0.01f,0.6f);
-	icolearning.openDocu("onef_highest");
-	for(int step=0;step<150000;step++) {
-		if (step%1000==500) {
-			icolearning.setInput(1,1);
-		} else {
-			icolearning.setInput(1,0);
-		}
-		if ((step%1000==503)&&(step<100000)) {
-			icolearning.setInput(0,1);
-		} else {
-			icolearning.setInput(0,0);
-		}
-		icolearning.prediction(step);
-		icolearning.writeDocu(step);
-	}
-}
-
-
-
-
-
-void icoLearningWith10FilterHigh() {
+void icoLearningWith10Filters() {
 	// Two inputs: reflex and predictor
 	// Just one filter in the filterbank
 	Icolearning icolearning(2,10);
@@ -137,7 +43,7 @@ void icoLearningWith10FilterHigh() {
 		icolearning.setPredictorsAsTraces(50);
 	else
 		icolearning.setPredictorsAsBandp(0.1f,0.6f);
-	icolearning.openDocu("10filt_high");
+	icolearning.openDocu("ten_filters");
 	for(int step=0;step<150000;step++) {
 		if (step%1000==500) {
 			icolearning.setInput(1,1);
@@ -159,67 +65,39 @@ void icoLearningWith10FilterHigh() {
 
 
 
-void icoLearningWith10FilterHighest() {
-	// Two inputs: reflex and predictor
-	// Just one filter in the filterbank
-	Icolearning icolearning(2,10);
-	icolearning.setLearningRate(0.01f);
-	icolearning.setReflex(0.01f,0.6f);
-	if (trace)
-		icolearning.setPredictorsAsTraces(50);
-	else
-		icolearning.setPredictorsAsBandp(0.1f,0.6f);
-	icolearning.openDocu("10filt_highest");
-	for(int step=0;step<150000;step++) {
-		if (step%1000==500) {
-			icolearning.setInput(1,1);
-		} else {
-			icolearning.setInput(1,0);
-		}
-		if ((step%1000==525)&&(step<100000)) {
-			icolearning.setInput(0,1);
-		} else {
-			icolearning.setInput(0,0);
-		}
-		icolearning.prediction(step);
-		if (step%10==0) {
-			icolearning.writeDocu(step);
-		}
-	}
-}
-
-
-
-
-
-
-
-void stdpWithOneFilterLow() {
-	FILE* f=fopen("stdp_low.dat","wt");
+void stdpWithOneFilter() {
+	FILE* f=fopen("stdp.dat","wt");
 	for(int t=-200;t<=200;t++) {
-		Icolearning* icolearning=new Icolearning(2,1);
-		icolearning->setLearningRate(0.000001f);
+		// Two inputs: reflex and predictor
+		// Just one filter in the filterbank
+		Icolearning icolearning(2,1);
+		icolearning.setLearningRate(0.000001f);
+		icolearning.setReflex(0.01f,0.6f);
 		if (trace)
-			icolearning->setPredictorsAsTraces(50);
+			icolearning.setPredictorsAsTraces(50);
 		else
-			icolearning->setPredictorsAsBandp(0.1f,0.6f);
-		fprintf(stderr,"%d\n",t);
-		fflush(stderr);
-		for(int step=0;step<5000;step++) {
-			if ((step%1000)==500) {
-				icolearning->setInput(1,1);
+			icolearning.setPredictorsAsBandp(0.01f,0.6f);
+		for(int step=0;step<150000;step++) {
+			if (step%1000==500) {
+				icolearning.setInput(1,1);
 			} else {
-				icolearning->setInput(1,0);
+				icolearning.setInput(1,0);
 			}
-			if ((step%1000)==(500+t)) {
-				icolearning->setInput(0,1);
+			if ((step%1000==(500+t))&&(step<100000)) {
+				icolearning.setInput(0,1);
 			} else {
-				icolearning->setInput(0,0);
+				icolearning.setInput(0,0);
 			}
-			icolearning->prediction(step);
+			icolearning.prediction(step);
 		}
-		fprintf(f,"%d %f\n",t,icolearning->getWeight(1,0));
-		delete icolearning;
+		fprintf(f,"%d",t);
+		for(int i=0;i<icolearning.getNchannels();i++) {
+			for(int j=0;j<icolearning.getNfilters();j++) {
+				fprintf(f," %e",
+					icolearning.getWeight(i,j));
+			}
+		}
+		fprintf(f,"\n");
 	}
 	fclose(f);
 	fprintf(stderr,"\n");
@@ -227,28 +105,22 @@ void stdpWithOneFilterLow() {
 
 
 
-
-
-
-
-
-
-
-
 int main(int argc, char *argv[]) {
-        int c;
+    int c;
 	long unsigned int demoNumber=0;
 
-        while (-1 != (c = getopt(argc, argv, "td:"))) {
-                switch (c) {
-                case 'd':
-                        demoNumber = strtoul(optarg,NULL,0);
-                        break;
+	while (-1 != (c = getopt(argc, argv, "td:")))
+	{
+		switch (c)
+		{
+		case 'd':
+			demoNumber = strtoul(optarg, NULL, 0);
+			break;
 
 		case 't':
 			// switch to trace instead of bandpass
 			trace = 1;
-			fprintf(stderr,"Filter responses are traces\n");
+			fprintf(stderr, "Filter responses are traces.\n");
 			break;
 
 		default:
@@ -257,33 +129,22 @@ int main(int argc, char *argv[]) {
 		}
 	}
 
-	fprintf(stderr,"Demo #%ld\n",demoNumber);
+	fprintf(stderr, "Demo #%ld\n", demoNumber);
 	switch (demoNumber) {
 	case 0:
-		icoLearningWithOneFilterLow();
+		fprintf(stderr,"ICO learning with one filter in the predictive pathway.\n");
+		icoLearningWithOneFilter();
 		break;
+
 	case 1:
-		icoLearningWithOneFilterHigh();
-		break;
-	case 2:
-		icoLearningWithOneFilterHighest001();
-		break;
-	case 3:
-		icoLearningWithOneFilterHighest005();
+		fprintf(stderr,"STDP curve calc for ICO learning with one filter in the predictive pathway.\n");
+		stdpWithOneFilter();
 		break;
 
-	case 100:
-		icoLearningWith10FilterHigh();
+	case 10:
+		fprintf(stderr,"ICO learning with ten filters in the predictive pathway.\n");
+		icoLearningWith10Filters();
 		break;
-
-	case 101:
-		icoLearningWith10FilterHighest();
-		break;
-
-	case 1000:
-		stdpWithOneFilterLow();
-		break;
-
 
 	}
 
