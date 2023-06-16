@@ -12,12 +12,14 @@ a slow feedback loop by a faster proactive action.
 
 
 ## What do I need?
-  - gcc/g++
+  - A c++ compiler
   - cmake
   - gnuplot
 
 
 ## Installation
+
+### Linux / Mac
 This installs `libicolearning` and the header files
 in the default install directories:
 ```
@@ -26,6 +28,13 @@ make
 sudo make install
 ```
 
+### Windows
+
+```
+cmake -G "Visual Studio 17 2022"
+```
+
+Then open `icolearning.sln` and click on "Build".
 
 ## Demo
 To get a feeling what ICO learning does there is a demo

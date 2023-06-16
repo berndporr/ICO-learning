@@ -2,6 +2,8 @@
 
 #include <complex>
 
+#define _CRT_SECURE_NO_WARNINGS
+
 /**
  * get a pointer to a filter
  **/
@@ -167,7 +169,6 @@ void Icolearning::openDocu(const char* ndocu) {
 
 float Icolearning::calcFrequ(float f0,int i) {
 	return f0/((float)i+1.0f);
-	return f0;
 }
 
 
