@@ -1,6 +1,11 @@
 // forward decl
 class Trace;
 
+#define _USE_MATH_DEFINES
+
+
+#include<math.h>
+
 
 #ifndef _trace
 #define _trace
