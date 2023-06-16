@@ -12,6 +12,7 @@
 #ifndef _Icolearning
 #define _Icolearning
 
+#define _USE_MATH_DEFINES
 
 #include<stdio.h>
 #include<math.h>
