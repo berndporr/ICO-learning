@@ -34,7 +34,7 @@ application. There are 3 different demo options.
 ### Single filter and single weight in the predictive path
 
 ```
-./demo -d 0
+./demo 0
 gnuplot onef_weights.plt
 ```
 
@@ -57,7 +57,7 @@ and reflex is systematically changed.
 
 
 ```
-./demo -d 1
+./demo 1
 gnuplot stdp.plt
 ```
 
@@ -69,7 +69,7 @@ The filterbank generates different timings so that the predictive pathway can ch
 the filter response which is best suited to eliminate the reflex.
 
 ```
-./demo -d 10
+./demo 10
 gnuplot ten_filters_weights.plt
 ```
 

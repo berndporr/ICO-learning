@@ -1,6 +1,7 @@
 #include "icolearning.h"
-#include <unistd.h>
 
+
+#include <cstring>
 
 int trace=0;
 
@@ -106,30 +107,23 @@ void stdpWithOneFilter() {
 
 
 int main(int argc, char *argv[]) {
-    int c;
-	long unsigned int demoNumber=0;
+	int demoNumber=0;
 
-	while (-1 != (c = getopt(argc, argv, "td:")))
-	{
-		switch (c)
-		{
-		case 'd':
-			demoNumber = strtoul(optarg, NULL, 0);
-			break;
+	if (argc < 2) {
+		fprintf(stderr,"%s <demo number> [-t]\n",argv[0]);
+		exit(1);
+	}
 
-		case 't':
-			// switch to trace instead of bandpass
+	demoNumber = atoi(argv[1]);
+
+	if (argc > 2) {
+		if (strcmp(argv[2],"-t") == 0) {
 			trace = 1;
 			fprintf(stderr, "Filter responses are traces.\n");
-			break;
-
-		default:
-			printf("bad option\n");
-			exit(1);
 		}
 	}
 
-	fprintf(stderr, "Demo #%ld\n", demoNumber);
+	fprintf(stderr, "Demo #%d\n", demoNumber);
 	switch (demoNumber) {
 	case 0:
 		fprintf(stderr,"ICO learning with one filter in the predictive pathway.\n");
