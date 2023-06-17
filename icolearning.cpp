@@ -3,8 +3,6 @@
 #include <complex>
 #include <stdio.h>
 
-#define _CRT_SECURE_NO_WARNINGS
-
 /**
  * get a pointer to a filter
  **/

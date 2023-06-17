@@ -38,7 +38,7 @@ Then open `icolearning.sln` and click on "Build".
 
 ## Demo
 To get a feeling what ICO learning does there is a demo
-application. There are 3 different demo options.
+application (commandline / terminal). There are 3 different demo options.
 
 ### Single filter and single weight in the predictive path
 

@@ -13,6 +13,7 @@ endif()
 include(GNUInstallDirs)
 
 if (MSVC)
+  add_definitions(-D_CRT_SECURE_NO_WARNINGS)
   add_compile_options(/W4)
 else()
   add_compile_options(-Wall -Wconversion -Wextra -pedantic)
