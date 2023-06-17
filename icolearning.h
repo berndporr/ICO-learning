@@ -5,7 +5,6 @@
  *
  * Published under the GPL
  *
- * Vers 0.95
  *
  **********************************************************************/
 
@@ -17,6 +16,7 @@
 #include<stdio.h>
 #include<math.h>
 #include<stdlib.h>
+#include<stdarg.h>
 #include"trace.h"
 
 
@@ -275,6 +275,36 @@ private:
 	 * Mode 0: linear, f=f0/(i+1)
 	 **/
 	float calcFrequ(float f0,int n);
+
+
+private:
+	bool debugOut = false;
+
+
+public:
+	/**
+	 * @brief Switches on debug messages
+	 *
+	 * @param yes
+	 */
+	void setDebugMessages(bool yes)
+	{
+		debugOut = yes;
+	}
+
+private:
+	void logging(const char *fmt, ...)
+	{
+		if (debugOut)
+		{
+			{
+				va_list args;
+				va_start(args, fmt);
+				vfprintf(stderr, fmt, args);
+				va_end(args);
+			}
+		}
+	}
 
 private:
 	int doDocu;

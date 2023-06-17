@@ -50,7 +50,9 @@ Trace::~Trace() {
 
 void Trace::impulse(const char* name) {
 	int steps=1000;
+#ifndef NDEBUG
 	fprintf(stderr,"Impulse resp: %s, %d steps\n",name,steps);
+#endif
 	for(int i=0;i<steps;i++) {
 		filter(0);
 	}
@@ -81,7 +83,9 @@ std::complex<float> Trace::h(std::complex<float> s) {
 
 void Trace::transfer(const char* name) {
 	int steps=1000;
+#ifndef NDEBUG
 	fprintf(stderr,"Transfer function: %s, %d steps\n",name,steps);
+#endif
 	FILE* ff=fopen(name,"wt");
 	if (!ff) {
 		fprintf(stderr,"Couldn't open %s \n",name);

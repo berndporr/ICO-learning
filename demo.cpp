@@ -9,6 +9,7 @@ void icoLearningWithOneFilter() {
 	// Two inputs: reflex and predictor
 	// Just one filter in the filterbank
 	Icolearning icolearning(2,1);
+	icolearning.setDebugMessages(true);
 	icolearning.setLearningRate(0.000001f);
 	icolearning.setReflex(0.01f,0.6f);
 	if (trace)
@@ -38,6 +39,7 @@ void icoLearningWith10Filters() {
 	// Just one filter in the filterbank
 	Icolearning icolearning(2,10);
 	icolearning.setLearningRate(0.0001f);
+	icolearning.setDebugMessages(true);
 
 	icolearning.setReflex(0.01f,0.6f);
 	if (trace)

@@ -1,6 +1,7 @@
 #include "icolearning.h"
 
 #include <complex>
+#include <stdio.h>
 
 #define _CRT_SECURE_NO_WARNINGS
 
@@ -29,7 +30,7 @@ void Icolearning::setInput(int i,float f) {
  **/
 Icolearning::Icolearning(int nInputs, 
 			 int nFi) {
-	fprintf(stderr,"ICO init: # of channels = %d, # of filters = %d\n",
+	logging("ICO init: # of channels = %d, # of filters = %d\n",
 		nInputs,nFi);
 	nChannels=nInputs;
 	inputs=new float[nInputs];
@@ -43,7 +44,7 @@ Icolearning::Icolearning(int nInputs,
 	delta=0.0F;
 	actualActivity=0.0F;
 	lastActivity=0.0F;
-	fprintf(stderr,"Init filters\n");
+	logging("Init filters\n");
 	iir=new Trace**[nChannels];
 	for(int j=0;j<nChannels;j++) {
 		iir[j]=new Trace*[nFilters];
@@ -51,7 +52,7 @@ Icolearning::Icolearning(int nInputs,
 			iir[j][i]=new Trace();
 		}
 	}
-	fprintf(stderr,"Init weights\n");
+	logging("Init weights\n");
 	weight=new float*[nChannels];
 	for(int j=0;j<nChannels;j++) {
 		weight[j]=new float[nFilters];
@@ -59,7 +60,7 @@ Icolearning::Icolearning(int nInputs,
 			weight[j][i]=0.0;
 		}
 	}
-	fprintf(stderr,"Init the last corr\n");
+	logging("Init the last corr\n");
 	lastCorrel=new float*[nChannels];
 	for(int j=0;j<nChannels;j++) {
 		lastCorrel[j]=new float[nFilters];
@@ -115,51 +116,49 @@ void Icolearning::openDocu(const char* ndocu) {
 	sprintf(tmp,"%s.log",ndocu);
 	char nWeights[128];
 	sprintf(nWeights,"%s_weights.dat",ndocu);
-	fprintf(stderr,"Opening %s for the weights\n",nWeights);
+	logging("Opening %s for the weights\n",nWeights);
 	fWeights=fopen(nWeights,"wt");
 	if (!fWeights) {
-		fprintf(stderr,"Could not open docu %s\n",nWeights);
-		exit(1);
+		logging("Could not open docu %s\n",nWeights);
+		return;
 	}
 
 	char nProd[128];
 	sprintf(nProd,"%s_prod.dat",ndocu);
-	fprintf(stderr,"Opening %s for the prod uv'\n",nProd);
+	logging("Opening %s for the prod uv'\n",nProd);
 	fProd=fopen(nProd,"wt");
 	if (!fProd) {
-		fprintf(stderr,"Could not open docu %s\n",nProd);
-		exit(1);
+		logging("Could not open docu %s\n",nProd);
+		return;
 	}
 
 	char nFilter[128];
 	sprintf(nFilter,"%s_filter.dat",ndocu);
-	fprintf(stderr,"Opening %s for the Filters\n",nFilter);
+	logging("Opening %s for the Filters\n",nFilter);
 	fFilter=fopen(nFilter,"wt");
 	if (!fFilter) {
-		fprintf(stderr,"Could not open docu %s\n",nFilter);
-		exit(1);
+		logging("Could not open docu %s\n",nFilter);
+		return;
 	}
-
-
 
 	char weightFilter[128];
 	sprintf(weightFilter,"%s_filters_weighted.dat",ndocu);
-	fprintf(stderr,"Opening %s for the Filters\n",nFilter);
+	logging("Opening %s for the Filters\n",nFilter);
 	fweightFilter=fopen(weightFilter,"wt");
 	if (!fweightFilter) {
-		fprintf(stderr,"Could not open docu %s\n",weightFilter);
-		exit(1);
+		logging("Could not open docu %s\n",weightFilter);
+		return;
 	}
 
 
 
 	char nOutput[128];
 	sprintf(nOutput,"%s_output.dat",ndocu);
-	fprintf(stderr,"Opening %s for the output\n",nOutput);
+	logging("Opening %s for the output\n",nOutput);
 	fOutput=fopen(nOutput,"wt");
 	if (!fOutput) {
-		fprintf(stderr,"Cound not open docu %s\n",nOutput);
-		exit(1);
+		logging("Cound not open docu %s\n",nOutput);
+		return;
 	}
 	doDocu=1;
 }
@@ -177,9 +176,11 @@ void Icolearning::setReflex(float f0, // frequency
 			    float q0  // quality
 			    ) {
 	getFilter(0,0)->calcCoeffBandp(f0,q0);
-	getFilter(0,0)->impulse("h0.dat");
+	if (doDocu)
+	{
+		getFilter(0, 0)->impulse("h0.dat");
+	}
 }
-
 
 void Icolearning::setPredictorsAsBandp(float f1,
 				       float q1
@@ -187,12 +188,15 @@ void Icolearning::setPredictorsAsBandp(float f1,
 	for(int i=1;i<nChannels;i++) {
 		for(int j=0;j<nFilters;j++) {
 			float fi=calcFrequ(f1,j);
-			fprintf(stderr,"Bandp channel %d,filter #%d: f=%f, Q=%f\n",
+			logging("Bandp channel %d,filter #%d: f=%f, Q=%f\n",
 				i,j,fi,q1);
-			getFilter(i,j)->calcCoeffBandp(fi,q1);
-			char tmp[256];
-			sprintf(tmp,"h_t_bandpass_%d_%02d.dat",i,j);
-			getFilter(i,j)->impulse(tmp);
+			getFilter(i, j)->calcCoeffBandp(fi, q1);
+			if (doDocu)
+			{
+				char tmp[256];
+				sprintf(tmp, "h_t_bandpass_%d_%02d.dat", i, j);
+				getFilter(i, j)->impulse(tmp);
+			}
 		}
 	}
 }
@@ -205,9 +209,12 @@ void Icolearning::setPredictorsAsTraces(int nTaps,
 		for(int j=0;j<nFilters;j++) {
 			getFilter(i,j)->calcCoeffTrace((int)(((float)nTaps)/((float)(j+1))),
 						       tau/((float)(j+1)));
-			char tmp[256];
-			sprintf(tmp,"h(t),trace: h%d_%02d.dat",i,j);
-			getFilter(i,j)->impulse(tmp);
+			if (doDocu)
+			{
+				char tmp[256];
+				sprintf(tmp, "h(t),trace: h%d_%02d.dat", i, j);
+				getFilter(i, j)->impulse(tmp);
+			}
 		}
 	}
 }
