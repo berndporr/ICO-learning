@@ -4,7 +4,7 @@
 
 ![alt tag](closedloop.png)
 
-[Porr, B. and Wörgötter, F. (2003) Strongly Improved Stability and Faster Convergence of Temporal Sequence Learning by Using Input Correlations Only](https://direct.mit.edu/neco/article/18/6/1380/7111/Strongly-Improved-Stability-and-Faster-Convergence)
+[Porr, B. and Wörgötter, F. (2006) Strongly Improved Stability and Faster Convergence of Temporal Sequence Learning by Using Input Correlations Only](https://direct.mit.edu/neco/article/18/6/1380/7111/Strongly-Improved-Stability-and-Faster-Convergence)
 
 ICO learning is a learning algorithm which is inspired by spike timing
 dependent plasticity. It does "reflex avoidance": It replaces
@@ -12,9 +12,9 @@ a slow feedback loop by a faster proactive action.
 
 
 ## What do I need?
-  - A c++ compiler
+  - A C++ compiler
   - cmake
-  - gnuplot
+  - gnuplot (for plotting the demo data)
 
 
 ## Installation
